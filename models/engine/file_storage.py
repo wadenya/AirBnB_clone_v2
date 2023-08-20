@@ -10,19 +10,14 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        dct = {}
-        data_dct = self.__objects
-        if cls:
-            if type(cls) == str:
-                cls = eval(cls)
-            for key in data_dct.keys():
-                key_dot_stripped = key.replace(".", " ")
-                new_key = key_dot_stripped.split()
-                if (cls.__name__ == new_key[0]):
-                    new_dict[key] = self.__objects[key]
-            return dct
-        else:
+        if cls is None:
             return FileStorage.__objects
+        cls_name = cls.__name__
+        dctn = {}
+        for key in self.__objects.keys():
+            if key.split('.')[0] == cls_name:
+                dctn[key] = self.__objects[key]
+        return dctn
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -66,18 +61,8 @@ class FileStorage:
             if obj:
                 key = "{}.{}".format(type(obj).__name__, obj.id)
                 if key in FileStorage.__objects:
-                    del self.__objects[key]
+                    del FileStorage.__objects[key]
 
         def close(self):
             """reloads method called"""
-        self.reload()
-
-        @classmethod
-        def set_path(cls, file_path: str):
-            """change the save file path."""
-            cls.__file_path = file_path
-
-        @classmethod
-        def new_object(cls):
-            """Obj storage."""
-            cls.__objects = {}
+            self.reload()
