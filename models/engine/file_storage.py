@@ -10,10 +10,21 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if cls:
-            return {key: val for key, val in FileStorage.__objects.items()
-                    if isinstance(val, cls)}
-        return FileStorage.__objects
+        if not cls:
+            return FileStorage.__objects
+
+        filtered_objects = {}
+        for key, obj in FileStorage.__objects.items():
+            class_name_from_key = key.split('.')[0]
+
+            # Check whether cls is a class reference or its string name
+            if isinstance(cls, str) and cls == class_name_from_key:
+                filtered_objects[key] = obj
+            elif not isinstance(cls, str) and obj.__class__ == cls:
+                filtered_objects[key] = obj
+
+        return filtered_objects
+
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -57,5 +68,8 @@ class FileStorage:
             if obj:
                 key = "{}.{}".format(type(obj).__name__, obj.id)
                 if key in FileStorage.__objects:
-                    del FileStorage.__objects[key]
-                    self.save()
+                    del self.__objects[key]
+
+        def close(self):
+        """reloads method called"""
+        self.reload()
