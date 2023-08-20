@@ -13,11 +13,11 @@ class FileStorage:
         if cls is None:
             return self.__objects
         cls_name = cls.__name__
-        dct = {}
+        dctn = {}
         for key in self.__objects.keys():
             if key.split('.')[0] == cls_name:
-                dct[key] = self.__objects[key]
-        return dct
+                dctn[key] = self.__objects[key]
+        return dctn
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -62,11 +62,10 @@ class FileStorage:
             None, the method should not do anything
             """
             if obj is None:
-                return
-            obj_key = obj.to_dict()['__class__'] + '.' + obj.id
-            if obj_key in self.__objects.keys():
-                del self.__objects[obj_key]
-                self.save
+            return
+        obj_key = obj.to_dict()['__class__'] + '.' + obj.id
+        if obj_key in self.__objects.keys():
+            del self.__objects[obj_key]
 
             del close(self):
                 """reload method called"""
