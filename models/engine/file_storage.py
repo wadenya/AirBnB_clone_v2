@@ -10,21 +10,19 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if not cls:
+        dct = {}
+        data_dct = self.__objects
+        if cls:
+            if type(cls) == str:
+                cls = eval(cls)
+            for key in data_dct.keys():
+                key_dot_stripped = key.replace(".", " ")
+                new_key = key_dot_stripped.split()
+                if (cls.__name__ == new_key[0]):
+                    new_dict[key] = self.__objects[key]
+            return dct
+        else:
             return FileStorage.__objects
-
-        filtered_objects = {}
-        for key, obj in FileStorage.__objects.items():
-            class_name_from_key = key.split('.')[0]
-
-            # Check whether cls is a class reference or its string name
-            if isinstance(cls, str) and cls == class_name_from_key:
-                filtered_objects[key] = obj
-            elif not isinstance(cls, str) and obj.__class__ == cls:
-                filtered_objects[key] = obj
-
-        return filtered_objects
-
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
