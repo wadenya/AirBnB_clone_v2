@@ -216,14 +216,14 @@ class HBNBCommand(cmd.Cmd):
         print("Destroys an individual instance of a class")
         print("[Usage]: destroy <className> <objectId>\n")
 
-    def do_all(self, args):
+    def do_all(self, line):
         """ Shows all objects, or all objects of a class"""
-        if not args:
+        if not line:
             o = storage.all()
             print([o[k].__str__() for k in o])
             return
         try:
-            args = args.split(" ")
+            args = line.split(" ")
             if args[0] not in self.classes:
                 raise NameError()
 
