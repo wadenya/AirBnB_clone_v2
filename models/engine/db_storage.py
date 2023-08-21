@@ -42,9 +42,12 @@ class DBStorage:
             objs = {}
             objs[cls] = self.__session.query(classes[cls]).all()
         else:
-            for _cls in classes:
-                objs = {}
-                objs[_cls] = self.__session.query(classes[_cls]).all()
+            objs = self.__session.query(State).all()
+            objs.extend(self.__session.query(City).all())
+            objs.extend(self.__session.query(User).all())
+            objs.extend(self.__session.query(Place).all())
+            objs.extend(self.__session.query(Review).all())
+            objs.extend(self.__session.query(Amenity).all())
         return {"{}.{}".format(type(obj).__name__, obj.id): obj for obj in objs}
 
     def new(self, obj):
