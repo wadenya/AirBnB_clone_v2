@@ -2,9 +2,17 @@
 """module defines DBStorage class"""
 from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session
 from os import getenv
 
 from models.base_model import BaseModel, Base
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 
 class DBStorage:
@@ -25,14 +33,6 @@ class DBStorage:
 
     def all(self, cls=None):
         """get all objects in db based on cls"""
-        from models.base_model import BaseModel
-        from models.user import User
-        from models.place import Place
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.review import Review
-
         classes = {
                     'BaseModel': BaseModel, 'User': User, 'Place': Place,
                     'State': State, 'City': City, 'Amenity': Amenity,
@@ -46,3 +46,26 @@ class DBStorage:
                 objs = {}
                 objs[_cls] = self.__session.query(classes[_cls]).all()
         return {"{}.{}".format(type(obj).__name__, obj.id): obj for obj in objs}
+
+    def new(self, obj):
+        """adds  object to db session"""
+        self.__session.add(obj)
+    
+    def save(self):
+        """commits all changes to db"""
+        self.__session.commit()
+    
+    def delete(self, obj=None):
+        """deletes object from db session if not None"""
+        if obj is not None:
+            self.__session.delete(obj)
+    
+    def reload(self):
+        """creates all tables in db"""
+        Base.metadata.create_all(self.__engine)
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
+        Session = scoped_session(session_factory)
+        self.__session = Session()
+
+    
