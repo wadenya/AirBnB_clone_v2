@@ -12,11 +12,11 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         if cls is None:
             return FileStorage.__objects
-        cls_name = cls.__name__
+        cls_nam = cls.__name__
         dctn = {}
-        for key in self.__objects.keys():
-            if key.split('.')[0] == cls_name:
-                dctn[key] = self.__objects[key]
+        for key in FileStorage.__objects.keys():
+            if key.split('.')[0] == cls_nam:
+                dctn[key] = FileStorage.__objects[key]
         return dctn
 
     def new(self, obj):
@@ -57,7 +57,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """delete obj from __objects if it’s inside"""
+        """to delete obj from __objects if it’s inside"""
         if obj:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             if key in FileStorage.__objects:
