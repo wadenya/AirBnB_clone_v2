@@ -227,7 +227,7 @@ class HBNBCommand(cmd.Cmd):
             if args[0] not in self.classes:
                 raise NameError()
 
-            o = storage.all(eval(str(args[0]))
+            o = storage.all(eval(str(args[0])))
             print([o[k].__str__() for k in o])
 
         except NameError:
