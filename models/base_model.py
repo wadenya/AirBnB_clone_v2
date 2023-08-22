@@ -4,9 +4,10 @@ import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-
+from models import type_storage
 
 Base = declarative_base()
+
 class BaseModel:
     """A base class for all hbnb models"""
 
@@ -61,5 +62,6 @@ class BaseModel:
         return dictionary
     
     def delete(self):
+        """del instance from storage"""
         from models import storage
         storage.delete(self)
