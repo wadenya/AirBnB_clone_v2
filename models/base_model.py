@@ -58,6 +58,8 @@ class BaseModel:
         _dict['__class__'] = self.__class__.__name__
         _dict['created_at'] = self.created_at.isoformat()
         _dict['updated_at'] = self.updated_at.isoformat()
+        print("dict: ")
+        print(_dict)
         return _dict
     
     
