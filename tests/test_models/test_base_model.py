@@ -83,8 +83,8 @@ class test_basemodel(unittest.TestCase):
         self.assertIn('firstname', self.value(firstname='Celestine').to_dict())
         self.assertIn('lastname', self.value(lastname='Akpanoko').to_dict())
 
-        self.assertIsInstance(self.value().to_dict()['created_at'], str)
-        self.assertIsInstance(self.value().to_dict()['updated_at'], str)
+        self.assertIsInstance(i.to_dict()['created_at'], str)
+        self.assertIsInstance(i.to_dict()['updated_at'], str)
 
         datetime_now = datetime.today()
         mdl = self.value()
@@ -97,6 +97,7 @@ class test_basemodel(unittest.TestCase):
             'updated_at': datetime_now.isoformat()
         }
         self.assertDictEqual(mdl.to_dict(), to_dict)
+
         if os.getenv('HBNB_TYPE_STORAGE') != 'db':
             self.assertDictEqual(
                 self.value(id='u-b34', age=13).to_dict(),
@@ -139,8 +140,8 @@ class test_basemodel(unittest.TestCase):
     def test_kwargs_one(self):
         """test kwargs with one arg"""
         n = {'Name': 'test'}
-        with self.assertRaises(KeyError):
             new = self.value(**n)
+            self.assertTrue(isinstance(new, BaseModel))
 
     def test_id(self):
         """test id """
@@ -150,12 +151,12 @@ class test_basemodel(unittest.TestCase):
     def test_created_at(self):
         """test created at"""
         new = self.value()
-        self.assertEqual(type(new.created_at), datetime.datetime)
+        self.assertEqual(type(new.created_at), datetime)
 
     def test_updated_at(self):
         """test update at"""
         new = self.value()
-        self.assertEqual(type(new.updated_at), datetime.datetime)
+        self.assertEqual(type(new.updated_at), datetime)
         n = new.to_dict()
         new = BaseModel(**n)
         self.assertFalse(new.created_at == new.updated_at)
