@@ -4,6 +4,7 @@
 import os
 from typing import TextIO
 from models.engine.file_storage import FileStorage
+import models
 
 
 def clear_stream(stream: TextIO):

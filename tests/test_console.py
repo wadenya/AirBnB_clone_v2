@@ -11,7 +11,8 @@ from unittest.mock import patch
 from console import HBNBCommand
 from models import storage
 from models.base_model import BaseModel
-from models.user import User
+from models.user import Use8r
+import models
 from tests import clear_stream
 
 
