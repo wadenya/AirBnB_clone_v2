@@ -5,6 +5,7 @@ from models.amenity import Amenity
 from models.review import Review
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
+from os import getenv
 
 association_table = Table("place_amenity", Base.metadata,
                           Column("place_id", String(60),
@@ -33,7 +34,7 @@ class Place(BaseModel, Base):
                              viewonly=False, back_populates="places")
     amenity_ids = []
 
-    if getenv("HBNB_TYPE_STORAGE", None) != "db":
+    if getenv("HBNB_TYPE_STORAGE") != "db":
         @property
         def reviews(self):
             """Get a list of all linked Reviews."""
