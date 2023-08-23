@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
-import models
-from os import getenv, environ
 from models.amenity import Amenity
 from models.review import Review
+from models import storage
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.sql.schema import Table
@@ -51,7 +50,6 @@ class Place(BaseModel, Base):
     @property
     def amenities(self):
     '''Return list of Amenity instances linked to this Place.'''
-    from models import storage
     all_amenities = storage.all(Amenity)
     amenities_list = []
     for amenity_instance in all_amenities.values():
