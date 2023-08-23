@@ -140,8 +140,8 @@ class test_basemodel(unittest.TestCase):
     def test_kwargs_one(self):
         """test kwargs with one arg"""
         n = {'Name': 'test'}
-            new = self.value(**n)
-            self.assertTrue(isinstance(new, BaseModel))
+        new = self.value(**n)
+        self.assertTrue(isinstance(new, BaseModel))
 
     def test_id(self):
         """test id """
