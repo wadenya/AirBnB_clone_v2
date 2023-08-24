@@ -18,5 +18,5 @@ class test_state(test_basemodel):
         """test name"""
         new = self.value()
         self.assertEqual(type(new.name), str if
-                    os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                    type(None))
+                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
+                         type(None))
