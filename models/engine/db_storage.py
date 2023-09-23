@@ -3,6 +3,7 @@
 from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm import relationship
 from os import getenv
 
 from models.base_model import BaseModel, Base
@@ -66,4 +67,7 @@ class DBStorage:
         Session = scoped_session(session_factory)
         self.__session = Session()
 
+def close(self):
+	"""Close thee running SQLAlchemy session."""
+	self.__session.close()
     
