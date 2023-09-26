@@ -49,16 +49,16 @@ class DBStorage:
     def new(self, obj):
         """adds  object to db session"""
         self.__session.add(obj)
-    
+   
     def save(self):
         """commits all changes to db"""
         self.__session.commit()
-    
+ 
     def delete(self, obj=None):
         """deletes object from db session if not None"""
         if obj is not None:
             self.__session.delete(obj)
-    
+ 
     def reload(self):
         """creates all tables in db"""
         Base.metadata.create_all(self.__engine)
@@ -67,7 +67,8 @@ class DBStorage:
         Session = scoped_session(session_factory)
         self.__session = Session()
 
+
 def close(self):
-	"""Close thee running SQLAlchemy session."""
-	self.__session.close()
-    
+    """Close thee running SQLAlchemy session."""
+    self.__session.close()
+ 
