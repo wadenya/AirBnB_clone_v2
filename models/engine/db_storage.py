@@ -50,7 +50,7 @@ class DBStorage:
     def new(self, obj):
         """adds  object to db session"""
         self.__session.add(obj)
-   
+ 
     def save(self):
         """commits all changes to db"""
         self.__session.commit()
@@ -71,4 +71,4 @@ class DBStorage:
 
     def close(self):
         """Close thee running SQLAlchemy session."""
-        self.__session.close() 
+        self.__session.close()
