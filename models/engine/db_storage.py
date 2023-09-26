@@ -15,7 +15,6 @@ from models.amenity import Amenity
 from models.review import Review
 
 
-
 class DBStorage:
     """a class for Database storage"""
     __engine = None
@@ -50,11 +49,11 @@ class DBStorage:
     def new(self, obj):
         """adds  object to db session"""
         self.__session.add(obj)
- 
+
     def save(self):
         """commits all changes to db"""
         self.__session.commit()
- 
+
     def delete(self, obj=None):
         """deletes object from db session if not None"""
         if obj is not None:
@@ -67,7 +66,6 @@ class DBStorage:
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
-
 
     def close(self):
         """Close thee running SQLAlchemy session."""
