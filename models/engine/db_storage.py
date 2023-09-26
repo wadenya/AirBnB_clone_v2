@@ -15,6 +15,7 @@ from models.amenity import Amenity
 from models.review import Review
 
 
+
 class DBStorage:
     """a class for Database storage"""
     __engine = None
@@ -58,7 +59,7 @@ class DBStorage:
         """deletes object from db session if not None"""
         if obj is not None:
             self.__session.delete(obj)
- 
+
     def reload(self):
         """creates all tables in db"""
         Base.metadata.create_all(self.__engine)
@@ -68,6 +69,6 @@ class DBStorage:
         self.__session = Session()
 
 
-def close(self):
-    """Close thee running SQLAlchemy session."""
-    self.__session.close() 
+    def close(self):
+        """Close thee running SQLAlchemy session."""
+        self.__session.close() 
